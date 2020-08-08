@@ -1,0 +1,50 @@
+{%  extends 'main.html' %}
+
+{% block content %}
+
+<br>
+
+<div class="row">
+  <div class="col-md">
+  </div>
+
+
+</div>
+
+
+</div>
+
+
+<br>
+
+<br>
+
+<div class="row">
+  <div class="col-md">
+    <div class="card card-body">
+      <li><a href="/logout/"><i class="fa fa-dashboard"></i> LogOut</a></li>
+
+      <li><a href="/add/"><i class="fa fa-dashboard"></i> Add New Entry</a></li>
+      <table class="table table-sm">
+        <h3>My Entries</h3>
+        <tr>
+          <th>Project</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+
+        {% for i in entries %}
+        <tr>
+          <td>{{i.project.project_name}}</td>
+          <td>{{i.startTime}} {{i.startDate}}</td>
+          <td>{{i.endTime}} {{i.endDate}}</td>
+        </tr>
+        {% endfor %}
+
+
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

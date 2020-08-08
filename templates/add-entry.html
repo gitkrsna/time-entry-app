@@ -1,0 +1,63 @@
+{%  extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-body">
+            <li><a href="/"><i class="fa fa-dashboard"></i> My Entries</a></li>
+            <li><a href="/logout/"><i class="fa fa-dashboard"></i> Logout</a></li>
+
+            <h3>Add New Entry</h3>
+
+            <form method="POST" class="post-form" >
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="control-label" for="task">Task</label>
+                    <input type="text" class="form-control" id="task" name="task" placeholder="Task Name" >
+                </div>
+
+
+                <div class=" form-group">
+                    <label class="control-label" for="project">Project</label>
+
+
+                    <select class="form-control" id="project" name="project">
+                        {% for c in project %}
+                        <option value="{{ c.id}}">{{ c.project_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                </div>
+
+                
+
+                <div class="form-group">
+                    <label class="control-label" for="startDate">Start Time</label>
+                    <input type="datetime" class="form-control" id="startDate" name="startDate" placeholder="Enter start time" width="312" />
+                    <script>
+                        $('#startDate').datetimepicker({ footer: true, modal: true });
+                    </script>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label" for="endDate">End Time</label>
+                    <input type="datetime" class="form-control" id="endDate" name="endDate" placeholder="Enter end time" width="312" />
+                    <script>
+                        $('#endDate').datetimepicker({ footer: true, modal: true });
+                    </script>
+                </div>
+
+
+
+                <button type="submit" class="save btn btn-default">Save</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
