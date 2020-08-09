@@ -13,8 +13,10 @@ class Entry(models.Model):
     task = models.CharField(max_length = 256)
     user = models.ForeignKey(User,on_delete=models.CASCADE,)
     project = models.ForeignKey(Project,on_delete=models.CASCADE)
-    startDate = models.DateTimeField()
-    endDate = models.DateTimeField()
+    startdate = models.DateTimeField()
+    enddate = models.DateTimeField()
+    added_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
            
 
     

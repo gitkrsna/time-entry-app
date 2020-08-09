@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.forms import inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm
+import datetime
 
 from django.contrib.auth import authenticate, login, logout
 
@@ -25,7 +26,6 @@ def registerPage(request):
 				form.save()
 				user = form.cleaned_data.get('username')
 				messages.success(request, 'Account was created for ' + user)
-
 				return redirect('login')
 			
 
@@ -62,20 +62,24 @@ def home(request):
     entries = Entry.objects.all()
     return render(request, template_name, {'entries':entries})
 
+
+
+
 @login_required(login_url='login')
-def entry_change(request):
+def entry_change(request, slug=None):
+    entrydetails = None
+    if slug:
+     entrydetails = Entry.objects.get(user=request.user, id=slug)    
 
     if request.method == "POST":
-        form = EntryForm(request.POST)
+        form = EntryForm(request.POST, instance=entrydetails)
         if form.is_valid():
-            newform = form.save(commit=False)
-            newform.user = request.user
-            newform.save()
-            return redirect('/')
-
-    template_name = "add-entry.html"    
-    return render(request, template_name, { 'project' : Project.objects.all(), } ) 
-
-
+            new_case = form.save(commit=False)
+            new_case.user = request.user
+            new_case.save()
+            return HttpResponseRedirect('/list/')
+    else:
+        template_name = "add-entry.html" 
+        return render(request, template_name, { 'project' : Project.objects.all(), 'entrydetails' : entrydetails } ) 
 
 	
